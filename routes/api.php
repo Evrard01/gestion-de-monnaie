@@ -1,11 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\TypeController;
 use Orion\Facades\Orion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CompteController;
+use App\Http\Controllers\Api\MonaieController;
+use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\TypeController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,12 +32,26 @@ Route::group(['as' => 'api.'], function() {
 });
 
 Route::post('login',[AuthController::class,'login']);
+Route::post('depot',[TransactionController::class,'depot']);
+Route::post('retrait',[TransactionController::class,'retrait']);
 
 
 Route::group(["middleware"=>"auth:api"],function(){
 
+    // Route pour l'insertion des différents types
     Route::post('new-type-utilisateur',[TypeController::class,'user']);
-    
-    Route::get('logout',[AuthController::class,'logout']);
+    Route::post('new-type-transaction',[TypeController::class,'transaction']);
+    Route::post('new-type-monaie',[TypeController::class,'monaie']);
+    Route::get('types',[TypeController::class,'index']);
 
+    // Gestion des utilisateurs
+    Route::resource('utilisateurs',UserController::class);
+
+    // Gestion des comptes
+    Route::resource('comptes',CompteController::class);
+
+    //gestion de monaie
+    Route::resource('monaies',MonaieController::class);
+
+    Route::get('logout',[AuthController::class,'logout']);
 });

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
+            $table->foreignId('type_id')->constrained();
             $table->date('dateNaissance');
             $table->string("lieuNaissance");
             $table->string('email')->unique();
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

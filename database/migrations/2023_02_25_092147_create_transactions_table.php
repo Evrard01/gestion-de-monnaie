@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('soldeAvant',8,2);
             $table->float('montantTransaction',8,2);
             $table->float('soldeApres',8,2);
-            $table->foreignId('recpteur')->references('id')->on('comptes');
+            $table->foreignId('recepteur')->nullable()->references('id')->on('comptes');
             $table->timestamps();
         });
 

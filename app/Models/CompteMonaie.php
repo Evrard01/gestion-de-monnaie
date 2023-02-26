@@ -10,7 +10,7 @@ class CompteMonaie extends Model
     use HasFactory;
 
     protected $fillable = [
-        'compte_numero',
+        'compte_id',
         'monaie_id',
     ];
 }
